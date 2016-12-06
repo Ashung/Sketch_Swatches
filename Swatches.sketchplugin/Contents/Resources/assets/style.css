@@ -1,0 +1,309 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+body, ul, p {
+    margin: 0;
+    padding: 0;
+}
+button, input {
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    color: inherit;
+    text-decoration: underline;
+    font: inherit;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+    -webkit-user-select: none;
+    font: 14px/18px "Helvetica Neue", sans-serif;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    height: 56px;
+    min-height: 56px;
+    display: flex;
+    flex-direction: row;
+    -webkit-user-select: none;
+}
+header h1 {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    margin: 16px 0 16px 56px;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: auto;
+    cursor: default;
+}
+#menuToggle {
+    display: block;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    overflow: hidden;
+    margin: 16px;
+}
+#menuToggle:hover svg path {
+    fill: #2979FF;
+    fill-opacity: 1;
+}
+
+#menu {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+}
+#menu::before, #menu::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 16px;
+    display: block;
+    width: 360px;
+    height: 16px;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+#menu::after {
+    top: auto;
+    bottom: 0;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
+}
+#menuToggle-close {
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    margin: 16px;
+}
+#menuToggle-close:hover path {
+    fill: #2979FF;
+    fill-opacity: 1;
+}
+.menulist {
+    overflow: auto;
+    height: 510px;
+    padding: 16px 0;
+}
+.menulist li {
+    height: auto;
+}
+.menulist button {
+    width: 100%;
+    padding: 0 16px;
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.70);
+    height: 36px;
+    line-height: 36px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.menulist button:hover {
+    color: #2979FF;
+}
+.menulist li.current button {
+    font-weight: bold;
+}
+
+/*
+    Search
+*/
+.searchWrap {
+    padding: 8px 16px;
+}
+.search {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    padding: 8px 16px 8px 32px;
+    width: 100%;
+    height: 32px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    background: #fff url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTEuOTI2IDEwLjQyNkwxNiAxNC41IDE0LjUgMTZsLTQuMDc0LTQuMDc0YTYgNiAwIDEgMSAxLjUtMS41ek03IDExYTQgNCAwIDEgMCAwLTggNCA0IDAgMCAwIDAgOHoiIGZpbGw9IiNDQ0MiLz48L3N2Zz4=) no-repeat 8px 50%;
+}
+.search:focus {
+    border-color: #bbb;
+}
+
+/*
+    Swatches
+*/
+.swatchesWrap {
+    flex: auto;
+    padding: 0 16px;
+    overflow: auto;
+    position: relative;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.6);
+    border: 3px solid #fff;
+    border-radius:2em;
+}
+.swatches {
+    width: 360px;
+}
+.swatches li {
+    list-style: none;
+}
+.swatches button {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    text-indent: -9999px;
+    border: 1px solid #fff;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.swatches button::before {
+    display: block;
+    content: ".";
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+}
+.swatches button.focus::before {
+    border-color: #fff;
+}
+.swatches .colorgroup {
+    clear: both;
+    height: 24px;
+    line-height: 24px;
+    color: #999;
+}
+
+/*
+    Tools
+*/
+.tools {
+    height: 56px;
+    min-height: 56px;
+    padding: 0 16px;
+}
+.colorInfo {
+    float: left;
+    width: 220px;
+}
+#colorPreview {
+    width: 24px;
+    height: 24px;
+    background: #000;
+    border-radius: 2px;
+    float: left;
+    margin: 16px 8px 16px 0;
+}
+#colorName {
+    display: block;
+    padding-top: 10px;
+    color: rgba(0, 0, 0, .7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#colorHex {
+    color: rgba(0, 0, 0, .5);
+    font: 12px/14px Monaco, monospace;
+}
+
+/*
+    Actions
+*/
+.actions {
+    float: right;
+    list-style: none;
+}
+.actions li {
+    position: relative;
+    float: left;
+    margin: 16px 0 16px 4px;
+}
+.actions svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.actions svg:hover path {
+    fill: #2979FF;
+    fill-opacity: 1;
+}
+.actions button:hover + span {
+    opacity: 1;
+    display: block;
+}
+
+.actions span {
+    opacity: 0;
+    display: none;
+    position: absolute;
+    top: -40px;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    padding: 10px;
+    white-space: nowrap;
+    border-radius: 4px;
+    transition: all .5s ease;
+}
+#icon_fill + span {
+    left: -30px;
+}
+#icon_stroke + span {
+    left: -40px;
+}
+#icon_add + span {
+    right: -50px;
+}
+#icon_copy + span {
+    right: -20px;
+}
+#icon_save + span {
+    right: 0;
+}

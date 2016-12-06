@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Swatches</title>
+<meta name="Author" content="Ashung.hung@gmail.com">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/jquery-3.1.1.min.js"></script>
+<script src="assets/common.js"></script>
+<script src="swatches.js"></script>
+<script src="assets/list.min.js"></script>
+
+<script src="colors/material_design_colors.js"></script>
+<script src="colors/ant_design_colors.js"></script>
+<script src="colors/apple_ios.js"></script>
+<script src="colors/microsoft_windows_colors.js"></script>
+<script src="colors/shopify_polaris_colors.js"></script>
+<script src="colors/atlassian_design_colors.js"></script>
+<script src="colors/web_colors.js"></script>
+<script src="colors/web_safe_colors.js"></script>
+<script src="colors/flat_ui_colors.js"></script>
+<script src="colors/open_color.js"></script>
+<script src="colors/ibm_design_colors.js"></script>
+
+</head>
+<body>
+<div class="container" id="container">
+    <header>
+        <h1 id="title">Swatches</h1>
+        <button id="menuToggle">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M4,17 L20,17 L20,19 L4,19 L4,17 Z M4,11 L20,11 L20,13 L4,13 L4,11 Z M4,5 L20,5 L20,7 L4,7 L4,5 Z" fill-opacity="0.7" fill="#000000"></path>
+            </svg>
+        </button>
+        <div id="menu">
+            <button id="menuToggle-close">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path fill-opacity="0.7" fill="#000000" d="M12 10.5857864 7.05025253 5.63603897 5.63603897 7.05025253 10.5857864 12 5.63603897 16.9497475 7.05025253 18.363961 12 13.4142136 16.9497475 18.363961 18.363961 16.9497475 13.4142136 12 18.363961 7.05025253 16.9497475 5.63603897z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="searchWrap">
+        <input class="search" placeholder="Search" />
+    </div>
+
+    <div class="swatchesWrap" id="swatchesWrap">
+        <div class="swatches">
+            <ul class="list" id="swatches"></ul>
+        </div>
+    </div>
+
+    <div class="tools">
+        <div class="colorInfo">
+            <div id="colorPreview"></div>
+            <strong id="colorName">Color Name</strong>
+            <code id="colorHex">#000000</code>
+        </div>
+        <ul class="actions">
+            <li>
+                <button id="icon_fill">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
+                        <path d="M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L18,6 L18,18 L6,18 L6,6 Z M8,8 L16,8 L16,16 L8,16 L8,8 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <span>Apply to Fill</span>
+            </li>
+            <li>
+                <button id="icon_stroke">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
+                        <path d="M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L18,6 L18,18 L6,18 L6,6 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <span>Apply to Stroke</span>
+            </li>
+            <li>
+                <button id="icon_add" title="Add to Document Colors">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
+                        <path d="M11,11 L9,11 L9,13 L11,13 L11,15 L13,15 L13,13 L15,13 L15,11 L13,11 L13,9 L11,9 L11,11 Z M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L18,6 L18,18 L6,18 L6,6 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <span>Add to Document Colors</span>
+            </li>
+            <li>
+                <button id="icon_copy">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
+                        <path d="M18,10 L18,6 L6,6 L6,18 L10,18 L10,10 L18,10 Z M4,4 L20,4 L20,20 L4,20 L4,4 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <span>Copy Color Code</span>
+            </li>
+            <li>
+                <button id="icon_save">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
+                        <path d="M12.5,15 L11.5,15 L11.5,16 L8,12.5 L8,10 L11,13 L11,8 L13,8 L13,13 L16,10 L16,12.5 L12.5,16 L12.5,15 Z M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L6,18 L18,18 L18,6 L6,6 Z M11.5,15 L11.5,16 L12.5,16 L12.5,15 L11.5,15 Z" fill-opacity="0.7" fill="#000000"></path>
+                    </svg>
+                </button>
+                <span>Save to System Color Picker</span>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        // Load Menu
+        var menu = $('<ul class="menulist"></ul>');
+        for (var i = 0; i < swatches.length; i++) {
+            var title = swatches[i].title;
+            var handler = swatches[i].handler;
+            var liCode = '<li><button onclick="' + handler + '(\'' + title + '\');window.location.hash=\'' + handler + '\'" value="' + handler + '">' + title + '</button></li>';
+            menu.append(liCode);
+        }
+        $("#menu").append(menu);
+
+        // Menu
+        $("#menuToggle").click(function() {
+            $("#menu").css("display", "block");
+            $("#menu").animate({
+                "height" : $("body").height()
+            }, 200);
+            $("#menu li").each(function() {
+                var current = ($(this).text() == $("#title").text()) ? "current" : "";
+                $(this).attr("class", current);
+            });
+        });
+        $("#menuToggle-close").click(function() {
+            $("#menu").animate({
+                "height" : "0"
+            }, 200);
+        });
+        $(".menulist button").click(function() {
+            $("#menu").animate({
+                "height" : "0"
+            }, 200);
+        });
+    });
+
+    window.onfocus = function() {
+        window.location.hash = "windowOnFocus_" + new Date().getTime();
+    }
+
+    // Disable right-click menu
+    document.oncontextmenu = function() {
+        window.event.returnValue = false;
+    }
+
+    function clickAtPoint(x, y) {
+        var element = document.elementFromPoint(x, y);
+        if (element.tagName == "BUTTON" || element.tagName == "INPUT" || element.tagName == "A") {
+            element.click();
+            element.focus();
+        }
+    }
+
+</script>
+</body>

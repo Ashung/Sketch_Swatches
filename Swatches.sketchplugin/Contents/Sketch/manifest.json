@@ -1,0 +1,47 @@
+{
+    "commands" : [
+        {
+            "script" : "swatches.cocoascript",
+            "name" : "Swatches",
+            "identifier" : "swatches"
+        },
+        {
+            "name": "Web Site",
+            "identifier": "web_site",
+            "handler": "website",
+            "script": "swatches.cocoascript"
+        },
+        {
+            "name": "Report Issue",
+            "identifier": "report_issue",
+            "handler": "reportIssue",
+            "script": "swatches.cocoascript"
+        },
+        {
+            "name": "Donate",
+            "identifier": "donate",
+            "handler": "donate",
+            "script": "swatches.cocoascript"
+        }
+    ],
+    "menu" : {
+        "items" : [
+            "swatches",
+            "-",
+            "web_site",
+            "report_issue",
+            "-",
+            "donate"
+        ],
+        "title" : "Swatches"
+    },
+    "icon": "icon.png",
+    "identifier" : "com.ashung.hung.sketch_swatches",
+    "version" : "2.6.0",
+    "description" : "Swatches for Sketch.",
+    "homepage": "https://github.com/Ashung/Sketch_Swatches",
+    "appcast": "https://ashung.github.io/Sketch_Swatches/appcast.xml",
+    "authorEmail" : "Ashung.hung@gmail.com",
+    "author" : "Ashung Hung",
+    "name" : "Swatches"
+}
