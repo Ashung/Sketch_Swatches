@@ -1,0 +1,69 @@
+{
+    "commands" : [
+        {
+            "script" : "swatches.cocoascript",
+            "name" : "Swatches",
+            "handlers" : {
+                "run" : "onRun"
+            },
+            "identifier" : "swatches"
+        },
+        {
+            "name": "Web Site",
+            "identifier": "web_site",
+            "handler": "website",
+            "script": "swatches.cocoascript"
+        },
+        {
+            "name": "Report Issue",
+            "identifier": "report_issue",
+            "handler": "reportIssue",
+            "script": "swatches.cocoascript"
+        },
+        {
+            "name": "Donate via PayPal",
+            "identifier": "donate_via_paypal",
+            "handler": "donateViaPaypal",
+            "script": "swatches.cocoascript"
+        },
+        {
+            "name": "微信扫码打赏",
+            "identifier": "donate_via_wechat",
+            "handler": "donateViaWechat",
+            "script": "swatches.cocoascript"
+        },
+        {
+            "name": "支付宝扫码打赏",
+            "identifier": "donate_via_alipay",
+            "handler": "donateViaAlipay",
+            "script": "swatches.cocoascript"
+        }
+    ],
+    "menu" : {
+        "items" : [
+            "swatches",
+            "-",
+            {
+                "title": "Help",
+                "items": [
+                    "web_site",
+                    "report_issue",
+                    "-",
+                    "donate_via_paypal",
+                    "donate_via_wechat",
+                    "donate_via_alipay"
+                ]
+            }
+        ],
+        "title" : "Swatches"
+    },
+    "identifier" : "com.ashung.hung.sketch_swatches",
+    "compatibleVersion": "3",
+    "version" : "1.0",
+    "description" : "Swatches plugin for Sketch.",
+    "homepage": "https://github.com/Ashung/Sketch_Swatches",
+    "downloadURL": "https://github.com/Ashung/Sketch_Swatches/archive/master.zip",
+    "authorEmail" : "Ashung.hung@gmail.com",
+    "author" : "Ashung Hung",
+    "name" : "Swatches"
+}

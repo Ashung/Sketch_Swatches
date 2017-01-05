@@ -1,0 +1,247 @@
+/*==========================================================
+    Swatches Plugin for Sketch
+    Author: Ashung Hung
+    Homepage: https://github.com/Ashung/Sketch_Swatches
+    License: CC-BY 4.0
+==========================================================*/
+
+@font-face {
+    font-family: "SourceSans";
+    font-weight: normal;
+    src: local('Source Sans Pro'),
+    url("SourceSansPro-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "SourceSans";
+    font-weight: bold;
+    src: local('Source Sans Pro'),
+    url("SourceSansPro-Bold.ttf") format('truetype');
+}
+
+body, ul, p {
+    margin: 0;
+    padding: 0;
+}
+button {
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    color: inherit;
+    text-decoration: underline;
+    font: inherit;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+    -webkit-user-select: none;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font: 14px/18px "SourceSans", "Source Sans Pro", sans-serif;
+}
+header {
+    height: 56px;
+    min-height: 56px;
+    display: flex;
+    flex-direction: row;
+    -webkit-user-select: none;
+}
+header h1 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    margin: 16px 0 16px 56px;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: auto;
+}
+#menuToggle {
+    display: block;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    overflow: hidden;
+    margin: 16px;
+}
+#menuToggle:hover svg path {
+    fill: #2979FF;
+    fill-opacity: 1;
+}
+
+#menu {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    padding-bottom: 16px;
+    overflow: hidden;
+    background: #fff;
+}
+#menuToggle-close {
+    float: right;
+    display: block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    margin: 16px;
+}
+#menuToggle-close:hover path {
+    fill: #2979FF;
+    fill-opacity: 1;
+}
+.menulist {
+    clear: both;
+    overflow: auto;
+    max-height: 400px;
+}
+.menulist li {
+    height: auto;
+}
+.menulist button {
+    width: 100%;
+    padding: 0 16px;
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.70);
+    height: 36px;
+    line-height: 36px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.menulist button:hover {
+    color: #2979FF;
+}
+
+/*
+    Swatches
+*/
+.swatchesWrap {
+    flex: auto;
+    padding: 16px;
+    overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.6);
+    border: 3px solid #fff;
+    border-radius:2em;
+}
+#swatches {
+    width: 360px;
+}
+#swatches button {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    text-indent: -9999px;
+    background: #fff;
+}
+#swatches button.focus {
+    border: 2px solid #fff;
+    box-sizing: border-box;
+}
+
+
+/*
+    Tools
+*/
+.tools {
+    height: 56px;
+    min-height: 56px;
+    padding: 0 16px;
+    /*background: #eee;*/
+}
+.colorInfo {
+    float: left;
+    width: 240px;
+}
+#colorPreview {
+    width: 24px;
+    height: 24px;
+    background: #000;
+    border-radius: 2px;
+    float: left;
+    margin: 16px 8px 16px 0;
+}
+#colorName {
+    display: block;
+    padding-top: 10px;
+    color: rgba(0, 0, 0, .7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#colorHex {
+    color: rgba(0, 0, 0, .5);
+    font: 12px/14px Monaco, monospace;
+}
+
+/*
+    Actions
+*/
+.actions {
+    float: right;
+    list-style: none;
+}
+.actions li {
+    position: relative;
+    float: left;
+    margin: 16px 0 16px 4px;
+}
+.actions span {
+    opacity: 0;
+    display: none;
+    position: absolute;
+    top: -40px;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    padding: 10px;
+    white-space: nowrap;
+    border-radius: 4px;
+    transition: all .5s ease;
+}
+#icon_fill + span {
+    left: -30px;
+}
+#icon_stroke + span {
+    left: -40px;
+}
+#icon_add + span {
+    right: -30px;
+}
+#icon_copy + span {
+    right: 0;
+}
+.actions svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.actions svg:hover path {
+    fill: #2979FF;
+    fill-opacity: 1;
+}
+.actions button:hover + span {
+    opacity: 1;
+    display: block;
+}

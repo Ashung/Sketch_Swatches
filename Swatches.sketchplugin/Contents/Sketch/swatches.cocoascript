@@ -1,0 +1,208 @@
+@import "MochaJSDelegate.js";
+@import "../Resources/swatches.js";
+
+var onRun = function(context) {
+
+    var doc = NSDocumentController.sharedDocumentController().currentDocument();
+
+    // Main window
+    var title = "Swatches";
+    var identifier = "com.ashung.hung.swatches";
+    var threadDictionary = NSThread.mainThread().threadDictionary();
+    var swatchesWindow = threadDictionary[identifier] ? threadDictionary[identifier] : NSPanel.alloc().init();
+    var windowWidth = 392,
+        windowHeight = 503;
+    swatchesWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
+    swatchesWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask);
+    swatchesWindow.setBackgroundColor(NSColor.whiteColor());
+    swatchesWindow.standardWindowButton(NSWindowMiniaturizeButton).setHidden(true);
+    swatchesWindow.standardWindowButton(NSWindowZoomButton).setHidden(true);
+    swatchesWindow.setTitle(title);
+    swatchesWindow.setTitlebarAppearsTransparent(true);
+    swatchesWindow.becomeKeyWindow();
+    swatchesWindow.setLevel(NSFloatingWindowLevel);
+    threadDictionary[identifier] = swatchesWindow;
+    COScript.currentCOScript().setShouldKeepAround_(true);
+
+    // Add Web View to window
+    var webView = WebView.alloc().initWithFrame(NSMakeRect(0, 0, windowWidth, windowHeight - 24));
+    var windowObject = webView.windowScriptObject();
+    var delegate = new MochaJSDelegate({
+        "webView:didFinishLoadForFrame:" : (function(webView, webFrame) {
+            var initCode = getContentFromFile(context.plugin.urlForResourceNamed("init.js").path());
+            windowObject.evaluateWebScript(initCode);
+        }),
+        "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
+            var locationHash = windowObject.evaluateWebScript("window.location.hash");
+
+            log(locationHash);
+
+            // Save last opened swatch.
+            if (/^#init_.*/i.test(locationHash)) {
+                var handler = locationHash.substr(1);
+                var initJSCode = handler + '("' + getTitleFromHandler(handler) + '")';
+                writeContentToFile(
+                    context.plugin.urlForResourceNamed("init.js").path(),
+                    initJSCode
+                );
+            }
+
+             // Fill
+            if (/^#[A-F0-9]{6}-fill/i.test(locationHash)) {
+                var selection = doc.selectedLayers();
+                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                if (selection.count() > 0) {
+                    for (var i = 0; i < selection.count(); i++) {
+                        var layer = selection.objectAtIndex(i);
+                        setFillColor(layer, hexToMSColor(hex));
+                    }
+                    doc.reloadInspector();
+                } else {
+                    doc.showMessage("Please selected more than one layer.");
+                }
+            }
+
+            // Stroke
+            if (/^#[A-F0-9]{6}-stroke/i.test(locationHash)) {
+                var selection = doc.selectedLayers();
+                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                if (selection.count() > 0) {
+                    for (var i = 0; i < selection.count(); i++) {
+                        var layer = selection.objectAtIndex(i);
+                        setStrokeColor(layer, hexToMSColor(hex));
+                    }
+                    doc.reloadInspector();
+                } else {
+                    doc.showMessage("Please selected more than one layer.");
+                }
+            }
+
+            // Add to document colors
+            if (/^#[A-F0-9]{6}-add/i.test(locationHash)) {
+                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                addColorToDocumentColors(context, hexToMSColor(hex));
+                doc.showMessage("The color #" + hex + " has add to document colors.");
+            }
+
+           // Copy
+           if (/^#[A-F0-9]{6}-copy/i.test(locationHash)) {
+               var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+               var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
+               var message = "The color #" + hex + " has been copied.";
+               var code = "#" + hex + " /* " + colorName + " */";
+               copyToClipBoard(context, message, code);
+           }
+
+        })
+    });
+
+    webView.setFrameLoadDelegate_(delegate.getClassInstance());
+    webView.setMainFrameURL_(context.plugin.urlForResourceNamed("index.html").path());
+
+    swatchesWindow.contentView().addSubview(webView);
+    swatchesWindow.center();
+    swatchesWindow.makeKeyAndOrderFront(nil);
+};
+
+
+var website = function(context) {
+    openUrlInBrowser(context.plugin.homepageURL() + "");
+};
+
+var reportIssue = function(context) {
+    openUrlInBrowser(context.plugin.homepageURL() + "/issues");
+};
+
+var donateViaPaypal = function() {
+    openUrlInBrowser("https://www.paypal.me/ashung/2");
+};
+
+var donateViaWechat = function() {
+    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/css/donate_wechat_rmb_10.png");
+};
+
+var donateViaAlipay = function() {
+    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/css/donate_alipay_rmb_10.png");
+};
+
+function openUrlInBrowser(url) {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
+}
+
+function getTitleFromHandler(handler) {
+    for (var i = 0; i < swatches.length; i++) {
+        if (swatches[i].handler == handler) {
+            return swatches[i].title;
+        }
+    }
+}
+
+function getContentFromFile(filePath) {
+    var content = NSString.stringWithContentsOfFile_encoding_error_(
+        filePath, NSUTF8StringEncoding, nil
+    );
+    return content;
+}
+
+function writeContentToFile(filePath, content) {
+    content = NSString.stringWithFormat('%@', content);
+    content.writeToFile_atomically_encoding_error_(
+        filePath, true, NSUTF8StringEncoding, null
+    );
+}
+
+function hexToMSColor(hex) {
+    var r = parseInt(hex.substring(0, 2), 16),
+        g = parseInt(hex.substring(2, 4), 16),
+        b = parseInt(hex.substring(4, 6), 16);
+    var color = MSColor.alloc().init();
+    color.setRed(r / 255);
+    color.setGreen(g / 255);
+    color.setBlue(b / 255);
+    color.setAlpha(1);
+    return color;
+}
+
+function setFillColor(layer, color) {
+    if (layer.class() == "MSShapeGroup") {
+        var fills = layer.style().enabledFills();
+        if (fills.count() > 0 && fills.lastObject().fillType() == 0) {
+            fills.lastObject().setColor(color);
+        } else {
+            var fill = layer.style().addStylePartOfType(0);
+            fill.setFillType(0);
+            fill.setColor(color);
+        }
+    }
+    if (layer.class() == "MSTextLayer") {
+        layer.setTextColor(color);
+    }
+}
+
+function setStrokeColor(layer, color) {
+    if (layer.class() == "MSShapeGroup") {
+        var borders = layer.style().enabledBorders();
+        if (borders.count() > 0 && borders.lastObject().fillType() == 0) {
+            borders.lastObject().setColor(color);
+        } else {
+            var border = layer.style().addStylePartOfType(1);
+            border.setFillType(0);
+            border.setColor(color);
+            border.setPosition(2);
+            border.setThickness(1);
+        }
+    }
+}
+
+function addColorToDocumentColors(context, mscolor) {
+    var documentColors = context.document.documentData().assets().colors();
+    documentColors.addObject(mscolor);
+    context.document.showMessage("The color has been added to document colors.");
+}
+
+function copyToClipBoard(context, message, str) {
+    var pboard = NSPasteboard.generalPasteboard();
+    pboard.clearContents();
+    pboard.setString_forType_(str, NSStringPboardType);
+    context.document.showMessage(message);
+}
