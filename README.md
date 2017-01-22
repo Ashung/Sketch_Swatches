@@ -9,6 +9,44 @@ A swatches plugin for Sketch, include Material Design, Open Color, RAL, TOYO, Pa
 1. Download [master.zip](https://github.com/Ashung/Sketch_Swatches/archive/master.zip), unzip it.
 2. Double-click the "Swatches.sketchplugin".
 
+## Swatches Library
+
+- Google Material Design
+- Apple iOS
+- Open Color
+- IBM Design Colors
+- Named Web Colors
+- Web Safe Colors
+- Name Colors
+- RAL
+- TOYO
+- DIC
+- Focoltone
+- Trumatch
+- COPIC
+- Pantone PMS
+- Pantone Formula Guide Solid Coated
+- Pantone Formula Guide Solid Uncoated
+- Pantone Formula Guide Solid Coated 112 New Colors
+- Pantone Formula Guide Solid Uncoated 112 New Colors
+- Pantone Color Bridge Coated
+- Pantone Color Bridge Uncoated
+- Pantone Color Bridge Coated 112 New Colors
+- Pantone Color Bridge Uncoated 112 New Colors
+- Pantone CMYK Coated
+- Pantone CMYK Uncoated
+- Pantone Metallic Coated
+- Pantone Premium Metallic Coated
+- Pantone Extended Gamut Coated
+- Pantone Pastels & Neons Coated
+- Pantone Pastels & Neons Uncoated
+- Pantone Fashion Home (cotton)
+- Pantone Fashion Home (cotton) new
+- Pantone Fashion Home (paper)
+- Pantone Fashion Home (paper) new
+- 中国の伝統色
+- 日本の伝統色
+
 ## License
 
 CC-BY-SA 4.0
