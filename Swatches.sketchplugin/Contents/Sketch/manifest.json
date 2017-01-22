@@ -59,10 +59,11 @@
     },
     "identifier" : "com.ashung.hung.sketch_swatches",
     "compatibleVersion": "3",
-    "version" : "1.0",
-    "description" : "Swatches plugin for Sketch.",
+    "version" : "1.1",
+    "description" : "Swatches for Sketch.",
     "homepage": "https://github.com/Ashung/Sketch_Swatches",
     "downloadURL": "https://github.com/Ashung/Sketch_Swatches/archive/master.zip",
+    "updateURL": "https://github.com/Ashung/Sketch_Swatches/archive/master.zip",
     "authorEmail" : "Ashung.hung@gmail.com",
     "author" : "Ashung Hung",
     "name" : "Swatches"

@@ -12,13 +12,19 @@
 <script src="colors/material_design_colors.js"></script>
 <script src="colors/apple_ios.js"></script>
 <script src="colors/web_colors.js"></script>
+<script src="colors/web_safe_colors.js"></script>
 <script src="colors/ral_classic_colors.js"></script>
 <script src="colors/traditional_japanese_colors.js"></script>
 <script src="colors/traditional_chinese_colors.js"></script>
 <script src="colors/open_color.js"></script>
+<script src="colors/ibm_design_colors.js"></script>
 <script src="colors/name_colors.js"></script>
 <script src="colors/dic_color.js"></script>
 <script src="colors/toyo_color.js"></script>
+<script src="colors/focoltone.js"></script>
+<script src="colors/trumatch.js"></script>
+<script src="colors/copic.js"></script>
+<script src="colors/pantone_pms.js"></script>
 <script src="colors/pantone_formula_guide_solid_coated.js"></script>
 <script src="colors/pantone_formula_guide_solid_uncoated.js"></script>
 <script src="colors/pantone_formula_guide_solid_coated_112_new_colors.js"></script>
@@ -38,7 +44,7 @@
 <script src="colors/pantone_fashion_home_interiors_paper.js"></script>
 <script src="colors/pantone_fashion_home_interiors_cotton_new.js"></script>
 <script src="colors/pantone_fashion_home_interiors_paper_new.js"></script>
-    
+
 </head>
 <body>
 <div class="container">
@@ -126,8 +132,12 @@
             $("#menu").animate({
                 "height" : $("body").height()
             }, 200);
+            $("#menu li").each(function() {
+                var current = ($(this).text() == $("#title").text()) ? "current" : "";
+                $(this).attr("class", current);
+            });
         });
-        $("#menuToggle-close").click(function(){
+        $("#menuToggle-close").click(function() {
             $("#menu").animate({
                 "height" : "0"
             }, 200);
@@ -139,9 +149,10 @@
         });
     });
 
-     document.oncontextmenu = function() {
-         window.event.returnValue = false;
-     }
+    // Disable right-click menu
+    document.oncontextmenu = function() {
+        window.event.returnValue = false;
+    }
 
 </script>
 </body>

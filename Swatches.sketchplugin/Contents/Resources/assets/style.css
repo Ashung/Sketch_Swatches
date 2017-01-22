@@ -86,9 +86,24 @@ header h1 {
     left: 0;
     width: 100%;
     height: 0;
-    padding-bottom: 16px;
     overflow: hidden;
     background: #fff;
+    border-radius: 0 0 8px 8px;
+}
+#menu::before, #menu::after {
+    content: "";
+    position: fixed;
+    top: 56px;
+    left: 16px;
+    display: block;
+    width: 360px;
+    height: 16px;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+#menu::after {
+    top: auto;
+    bottom: 0;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
 }
 #menuToggle-close {
     float: right;
@@ -105,7 +120,8 @@ header h1 {
 .menulist {
     clear: both;
     overflow: auto;
-    max-height: 400px;
+    height: 390px;
+    padding: 16px 0;
 }
 .menulist li {
     height: auto;
@@ -124,6 +140,9 @@ header h1 {
 .menulist button:hover {
     color: #2979FF;
 }
+.menulist li.current button {
+    font-weight: bold;
+}
 
 /*
     Swatches
@@ -132,6 +151,7 @@ header h1 {
     flex: auto;
     padding: 16px;
     overflow: auto;
+    position: relative;
 }
 ::-webkit-scrollbar {
     width: 12px;
@@ -142,6 +162,21 @@ header h1 {
     background: rgba(0,0,0,0.6);
     border: 3px solid #fff;
     border-radius:2em;
+}
+.swatchesWrap::before, .swatchesWrap::after {
+    content: "";
+    position: fixed;
+    top: 56px;
+    left: 0;
+    display: block;
+    width: 376px;
+    height: 16px;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+.swatchesWrap::after {
+    top: auto;
+    bottom: 56px;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
 }
 #swatches {
     width: 360px;

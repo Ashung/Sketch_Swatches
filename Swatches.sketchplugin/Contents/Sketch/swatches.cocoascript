@@ -1,3 +1,10 @@
+/*==========================================================
+    Swatches for Sketch
+    Author: Ashung Hung
+    Homepage: https://github.com/Ashung/Sketch_Swatches
+    License: CC-BY 4.0
+==========================================================*/
+
 @import "MochaJSDelegate.js";
 @import "../Resources/swatches.js";
 
@@ -5,103 +12,127 @@ var onRun = function(context) {
 
     var doc = NSDocumentController.sharedDocumentController().currentDocument();
 
+    var swatchDefaultKey = "SKETCH_SWATCHES_DEFAULT_INIT_CODE";
+
     // Main window
     var title = "Swatches";
     var identifier = "com.ashung.hung.swatches";
     var threadDictionary = NSThread.mainThread().threadDictionary();
-    var swatchesWindow = threadDictionary[identifier] ? threadDictionary[identifier] : NSPanel.alloc().init();
-    var windowWidth = 392,
-        windowHeight = 503;
-    swatchesWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
-    swatchesWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask);
-    swatchesWindow.setBackgroundColor(NSColor.whiteColor());
-    swatchesWindow.standardWindowButton(NSWindowMiniaturizeButton).setHidden(true);
-    swatchesWindow.standardWindowButton(NSWindowZoomButton).setHidden(true);
-    swatchesWindow.setTitle(title);
-    swatchesWindow.setTitlebarAppearsTransparent(true);
-    swatchesWindow.becomeKeyWindow();
-    swatchesWindow.setLevel(NSFloatingWindowLevel);
-    threadDictionary[identifier] = swatchesWindow;
-    COScript.currentCOScript().setShouldKeepAround_(true);
 
-    // Add Web View to window
-    var webView = WebView.alloc().initWithFrame(NSMakeRect(0, 0, windowWidth, windowHeight - 24));
-    var windowObject = webView.windowScriptObject();
-    var delegate = new MochaJSDelegate({
-        "webView:didFinishLoadForFrame:" : (function(webView, webFrame) {
-            var initCode = getContentFromFile(context.plugin.urlForResourceNamed("init.js").path());
-            windowObject.evaluateWebScript(initCode);
-        }),
-        "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
-            var locationHash = windowObject.evaluateWebScript("window.location.hash");
+    if (!threadDictionary[identifier]) {
 
-            log(locationHash);
+        var swatchesWindow = threadDictionary[identifier] ? threadDictionary[identifier] : NSPanel.alloc().init();
+        var windowWidth = 392,
+            windowHeight = 503;
+        swatchesWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
+        swatchesWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask);
+        swatchesWindow.setBackgroundColor(NSColor.whiteColor());
+        swatchesWindow.standardWindowButton(NSWindowMiniaturizeButton).setHidden(true);
+        swatchesWindow.standardWindowButton(NSWindowZoomButton).setHidden(true);
+        swatchesWindow.setTitle(title);
+        swatchesWindow.setTitlebarAppearsTransparent(true);
+        swatchesWindow.becomeKeyWindow();
+        swatchesWindow.setLevel(NSFloatingWindowLevel);
+        threadDictionary[identifier] = swatchesWindow;
+        COScript.currentCOScript().setShouldKeepAround_(true);
 
-            // Save last opened swatch.
-            if (/^#init_.*/i.test(locationHash)) {
-                var handler = locationHash.substr(1);
-                var initJSCode = handler + '("' + getTitleFromHandler(handler) + '")';
-                writeContentToFile(
-                    context.plugin.urlForResourceNamed("init.js").path(),
-                    initJSCode
-                );
-            }
+        // Add Web View to window
+        var webView = WebView.alloc().initWithFrame(NSMakeRect(0, 0, windowWidth, windowHeight - 24));
+        var windowObject = webView.windowScriptObject();
+        var delegate = new MochaJSDelegate({
+            "webView:didFinishLoadForFrame:" : (function(webView, webFrame) {
 
-             // Fill
-            if (/^#[A-F0-9]{6}-fill/i.test(locationHash)) {
-                var selection = doc.selectedLayers();
-                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-                if (selection.count() > 0) {
-                    for (var i = 0; i < selection.count(); i++) {
-                        var layer = selection.objectAtIndex(i);
-                        setFillColor(layer, hexToMSColor(hex));
-                    }
-                    doc.reloadInspector();
+                var defaultSwatch = NSUserDefaults.standardUserDefaults().objectForKey_(swatchDefaultKey);
+
+                if (!defaultSwatch) {
+                    var initCode = swatches[0]["handler"] + '("' + swatches[0]["title"] + '")';
                 } else {
-                    doc.showMessage("Please selected more than one layer.");
+                    var initCode = defaultSwatch;
                 }
-            }
 
-            // Stroke
-            if (/^#[A-F0-9]{6}-stroke/i.test(locationHash)) {
-                var selection = doc.selectedLayers();
-                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-                if (selection.count() > 0) {
-                    for (var i = 0; i < selection.count(); i++) {
-                        var layer = selection.objectAtIndex(i);
-                        setStrokeColor(layer, hexToMSColor(hex));
+                windowObject.evaluateWebScript(initCode);
+
+            }),
+            "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
+                var locationHash = windowObject.evaluateWebScript("window.location.hash");
+
+                log(locationHash);
+
+                // Save last opened swatch.
+                if (/^#init_.*/i.test(locationHash)) {
+                    var handler = locationHash.substr(1);
+                    var initJSCode = handler + '("' + getTitleFromHandler(handler) + '")';
+                    NSUserDefaults.standardUserDefaults().setObject_forKey_(initJSCode, swatchDefaultKey)
+                }
+
+                 // Fill
+                if (/^#[A-F0-9]{6}-fill/i.test(locationHash)) {
+                    var selection = doc.selectedLayers();
+                    var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                    if (selection.count() > 0) {
+                        for (var i = 0; i < selection.count(); i++) {
+                            var layer = selection.objectAtIndex(i);
+                            setFillColor(layer, hexToMSColor(hex));
+                        }
+                        doc.reloadInspector();
+                    } else {
+                        doc.showMessage("Please selected more than one layer.");
                     }
-                    doc.reloadInspector();
-                } else {
-                    doc.showMessage("Please selected more than one layer.");
                 }
-            }
 
-            // Add to document colors
-            if (/^#[A-F0-9]{6}-add/i.test(locationHash)) {
-                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-                addColorToDocumentColors(context, hexToMSColor(hex));
-                doc.showMessage("The color #" + hex + " has add to document colors.");
-            }
+                // Stroke
+                if (/^#[A-F0-9]{6}-stroke/i.test(locationHash)) {
+                    var selection = doc.selectedLayers();
+                    var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                    if (selection.count() > 0) {
+                        for (var i = 0; i < selection.count(); i++) {
+                            var layer = selection.objectAtIndex(i);
+                            setStrokeColor(layer, hexToMSColor(hex));
+                        }
+                        doc.reloadInspector();
+                    } else {
+                        doc.showMessage("Please selected more than one layer.");
+                    }
+                }
 
-           // Copy
-           if (/^#[A-F0-9]{6}-copy/i.test(locationHash)) {
-               var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-               var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
-               var message = "The color #" + hex + " has been copied.";
-               var code = "#" + hex + " /* " + colorName + " */";
-               copyToClipBoard(context, message, code);
-           }
+                // Add to document colors
+                if (/^#[A-F0-9]{6}-add/i.test(locationHash)) {
+                    var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                    addColorToDocumentColors(context, hexToMSColor(hex));
+                    doc.showMessage("The color #" + hex + " has add to document colors.");
+                }
 
-        })
-    });
+               // Copy
+               if (/^#[A-F0-9]{6}-copy/i.test(locationHash)) {
+                   var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                   var title = windowObject.evaluateWebScript("document.getElementById('title').innerHTML");
+                   var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
+                   var message = "The color #" + hex + " has been copied.";
+                   var code = "#" + hex + " /* " + title + " " + colorName + " */";
+                   copyToClipBoard(context, message, code);
+               }
 
-    webView.setFrameLoadDelegate_(delegate.getClassInstance());
-    webView.setMainFrameURL_(context.plugin.urlForResourceNamed("index.html").path());
+            })
+        });
 
-    swatchesWindow.contentView().addSubview(webView);
-    swatchesWindow.center();
-    swatchesWindow.makeKeyAndOrderFront(nil);
+        webView.setFrameLoadDelegate_(delegate.getClassInstance());
+        webView.setMainFrameURL_(context.plugin.urlForResourceNamed("index.html").path());
+
+        swatchesWindow.contentView().addSubview(webView);
+        swatchesWindow.center();
+        swatchesWindow.makeKeyAndOrderFront(nil);
+
+        // Close Window
+        var closeButton = swatchesWindow.standardWindowButton(NSWindowCloseButton);
+        closeButton.setCOSJSTargetFunction(function(sender) {
+            COScript.currentCOScript().setShouldKeepAround(false);
+            threadDictionary.removeObjectForKey(identifier);
+            swatchesWindow.close();
+        });
+        closeButton.setAction("callAction:");
+
+    }
+
 };
 
 
@@ -135,20 +166,6 @@ function getTitleFromHandler(handler) {
             return swatches[i].title;
         }
     }
-}
-
-function getContentFromFile(filePath) {
-    var content = NSString.stringWithContentsOfFile_encoding_error_(
-        filePath, NSUTF8StringEncoding, nil
-    );
-    return content;
-}
-
-function writeContentToFile(filePath, content) {
-    content = NSString.stringWithFormat('%@', content);
-    content.writeToFile_atomically_encoding_error_(
-        filePath, true, NSUTF8StringEncoding, null
-    );
 }
 
 function hexToMSColor(hex) {

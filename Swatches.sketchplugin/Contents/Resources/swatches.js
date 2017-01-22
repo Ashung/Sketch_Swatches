@@ -12,8 +12,16 @@ var swatches = [
         "handler" : "init_open_color"
     },
     {
-        "title" : "HTML Colors",
+        "title" : "IBM Design Colors",
+        "handler" : "init_ibm_design_colors"
+    },
+    {
+        "title" : "Named Web Colors",
         "handler" : "init_web_colors"
+    },
+    {
+        "title" : "Web Safe Colors",
+        "handler" : "init_web_safe_colors"
     },
     {
         "title" : "Name Colors",
@@ -30,6 +38,22 @@ var swatches = [
     {
         "title" : "DIC Color",
         "handler" : "init_dic_color"
+    },
+    {
+        "title" : "Focoltone",
+        "handler" : "init_focoltone_colors"
+    },
+    {
+        "title" : "Trumatch",
+        "handler" : "init_trumatch"
+    },
+    {
+        "title" : "COPIC",
+        "handler" : "init_copic"
+    },
+    {
+        "title" : "Pantone PMS",
+        "handler" : "init_pantone_pms"
     },
     {
         "title" : "Pantone Formula Guide Solid Coated",
