@@ -3,9 +3,6 @@
         {
             "script" : "swatches.cocoascript",
             "name" : "Swatches",
-            "handlers" : {
-                "run" : "onRun"
-            },
             "identifier" : "swatches"
         },
         {
@@ -59,8 +56,8 @@
     },
     "identifier" : "com.ashung.hung.sketch_swatches",
     "compatibleVersion": "3",
-    "version" : "1.1",
-    "description" : "Swatches for Sketch.",
+    "version" : "2.0",
+    "description" : "Swatches for Sketch, include Material Design, Open Color, RAL, TOYO, Pantone and more.",
     "homepage": "https://github.com/Ashung/Sketch_Swatches",
     "downloadURL": "https://github.com/Ashung/Sketch_Swatches/archive/master.zip",
     "updateURL": "https://github.com/Ashung/Sketch_Swatches/archive/master.zip",
