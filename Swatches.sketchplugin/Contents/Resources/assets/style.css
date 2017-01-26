@@ -194,6 +194,12 @@ header h1 {
     border: 2px solid #fff;
     box-sizing: border-box;
 }
+#swatches .colorgroup {
+    clear: both;
+    height: 24px;
+    line-height: 24px;
+    color: #999;
+}
 
 
 /*

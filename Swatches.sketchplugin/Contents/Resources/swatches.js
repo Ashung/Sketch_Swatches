@@ -24,6 +24,10 @@ var swatches = [
         "handler" : "init_web_safe_colors"
     },
     {
+        "title" : "Brand Colors",
+        "handler" : "init_brand_colors"
+    },
+    {
         "title" : "Name Colors",
         "handler" : "init_name_colors"
     },
