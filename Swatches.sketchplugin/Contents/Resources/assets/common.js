@@ -33,5 +33,19 @@ function initSwatches(title) {
         $("#icon_stroke").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-stroke"');
         $("#icon_add").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-add"');
         $("#icon_copy").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-copy"');
+        $("#icon_save").attr("onclick", 'window.location.hash="save-to-system"');
     }
+}
+
+function getAllColors() {
+    var colors = [];
+    $("#swatches button").each(function(){
+        if ($(this).text() != "") {
+            colors.push([
+                $(this).attr("title"),
+                $(this).text()
+            ]);
+        }
+    });
+    return JSON.stringify(colors);
 }

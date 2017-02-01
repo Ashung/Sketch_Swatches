@@ -11,8 +11,9 @@
 var onRun = function(context) {
 
     var doc = NSDocumentController.sharedDocumentController().currentDocument();
+    var userDefaults = NSUserDefaults.standardUserDefaults();
 
-    var swatchDefaultKey = "SKETCH_SWATCHES_DEFAULT_INIT_CODE";
+    var swatchDefaultKey = "plugin_sketch_swatches_default_init_code";
 
     // Main window
     var title = "Swatches";
@@ -43,16 +44,22 @@ var onRun = function(context) {
     var windowObject = webView.windowScriptObject();
     var delegate = new MochaJSDelegate({
         "webView:didFinishLoadForFrame:" : (function(webView, webFrame) {
-            var defaultSwatch = NSUserDefaults.standardUserDefaults().objectForKey_(swatchDefaultKey);
+            var defaultSwatch = userDefaults.stringForKey(swatchDefaultKey);
             if (!defaultSwatch) {
                 var initCode = swatches[0]["handler"] + '("' + swatches[0]["title"] + '")';
             } else {
                 var initCode = defaultSwatch;
             }
             windowObject.evaluateWebScript(initCode);
+
+            userDefaults.setObject_forKey(initCode, swatchDefaultKey);
+            userDefaults.synchronize();
         }),
         "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
             var locationHash = windowObject.evaluateWebScript("window.location.hash");
+
+            var title = windowObject.evaluateWebScript("document.getElementById('title').innerHTML");
+            var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
 
             log(locationHash);
 
@@ -60,13 +67,14 @@ var onRun = function(context) {
             if (/^#init_.*/i.test(locationHash)) {
                 var handler = locationHash.substr(1);
                 var initJSCode = handler + '("' + getTitleFromHandler(handler) + '")';
-                NSUserDefaults.standardUserDefaults().setObject_forKey_(initJSCode, swatchDefaultKey)
+                userDefaults.setObject_forKey(initJSCode, swatchDefaultKey);
+                userDefaults.synchronize();
             }
 
              // Fill
             if (/^#[A-F0-9]{6}-fill/i.test(locationHash)) {
-                var selection = doc.selectedLayers().layers();
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                var selection = doc.selectedLayers().layers();
                 if (selection.count() > 0) {
                     for (var i = 0; i < selection.count(); i++) {
                         var layer = selection.objectAtIndex(i);
@@ -80,8 +88,8 @@ var onRun = function(context) {
 
             // Stroke
             if (/^#[A-F0-9]{6}-stroke/i.test(locationHash)) {
-                var selection = doc.selectedLayers().layers();
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                var selection = doc.selectedLayers().layers();
                 if (selection.count() > 0) {
                     for (var i = 0; i < selection.count(); i++) {
                         var layer = selection.objectAtIndex(i);
@@ -100,15 +108,31 @@ var onRun = function(context) {
                 doc.showMessage("The color #" + hex + " has add to document colors.");
             }
 
-           // Copy
-           if (/^#[A-F0-9]{6}-copy/i.test(locationHash)) {
-               var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-               var title = windowObject.evaluateWebScript("document.getElementById('title').innerHTML");
-               var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
-               var message = "The color #" + hex + " has been copied.";
-               var code = "#" + hex + " /* " + title + " " + colorName + " */";
-               copyToClipBoard(context, message, code);
-           }
+            // Copy
+            if (/^#[A-F0-9]{6}-copy/i.test(locationHash)) {
+                var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
+                var message = "The color #" + hex + " has been copied.";
+                var code = "#" + hex + " /* " + title + " " + colorName + " */";
+                copyToClipBoard(context, message, code);
+            }
+
+            // Save to system color picker
+            if (/^#save-to-system/i.test(locationHash)) {
+                var colorsString = windowObject.evaluateWebScript("getAllColors()");
+                var colors = JSON.parse(colorsString);
+
+                var systemColorList = NSColorList.alloc().init();
+                var systemColorListPath = NSHomeDirectory().stringByAppendingPathComponent("Library/Colors/" + title + ".clr");
+                for (var i = 0; i < colors.length; i++) {
+                    var color = hexToNSColor(colors[i][1]);
+                    systemColorList.setColor_forKey(color, colors[i][0]);
+                }
+
+                //save file to ~/Library/Colors/
+                systemColorList.writeToFile(systemColorListPath);
+
+                doc.showMessage('Color palette has saved to the system color picker, restart Sketch and run "View" - "Show Colors" to show it.');
+            }
 
         })
     });
@@ -165,15 +189,19 @@ function getTitleFromHandler(handler) {
 }
 
 function hexToMSColor(hex) {
-    var r = parseInt(hex.substring(0, 2), 16),
-        g = parseInt(hex.substring(2, 4), 16),
-        b = parseInt(hex.substring(4, 6), 16);
-    var color = MSColor.alloc().init();
-    color.setRed(r / 255);
-    color.setGreen(g / 255);
-    color.setBlue(b / 255);
-    color.setAlpha(1);
-    return color;
+    var r = parseInt(hex.substring(0, 2), 16) / 255,
+        g = parseInt(hex.substring(2, 4), 16) / 255,
+        b = parseInt(hex.substring(4, 6), 16) / 255,
+        a = 1;
+    return MSColor.colorWithRed_green_blue_alpha(r, g, b, a);
+}
+
+function hexToNSColor(hex) {
+    var r = parseInt(hex.substring(0, 2), 16) / 255,
+        g = parseInt(hex.substring(2, 4), 16) / 255,
+        b = parseInt(hex.substring(4, 6), 16) / 255,
+        a = 1;
+    return NSColor.colorWithRed_green_blue_alpha(r, g, b, a);
 }
 
 function setFillColor(layer, color) {

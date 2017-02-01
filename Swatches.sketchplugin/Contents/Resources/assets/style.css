@@ -209,11 +209,10 @@ header h1 {
     height: 56px;
     min-height: 56px;
     padding: 0 16px;
-    /*background: #eee;*/
 }
 .colorInfo {
     float: left;
-    width: 240px;
+    width: 220px;
 }
 #colorPreview {
     width: 24px;
@@ -247,30 +246,6 @@ header h1 {
     position: relative;
     float: left;
     margin: 16px 0 16px 4px;
-}
-.actions span {
-    opacity: 0;
-    display: none;
-    position: absolute;
-    top: -40px;
-    background: rgba(0, 0, 0, .8);
-    color: #fff;
-    padding: 10px;
-    white-space: nowrap;
-    border-radius: 4px;
-    transition: all .5s ease;
-}
-#icon_fill + span {
-    left: -30px;
-}
-#icon_stroke + span {
-    left: -40px;
-}
-#icon_add + span {
-    right: -30px;
-}
-#icon_copy + span {
-    right: 0;
 }
 .actions svg {
     display: block;
