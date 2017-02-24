@@ -8,6 +8,7 @@
 <script src="assets/jquery-3.1.1.min.js"></script>
 <script src="assets/common.js"></script>
 <script src="swatches.js"></script>
+<script src="assets/list.min.js"></script>
 
 <script src="colors/material_design_colors.js"></script>
 <script src="colors/apple_ios.js"></script>
@@ -65,8 +66,11 @@
         </div>
     </header>
 
-    <div class="swatchesWrap">
-        <div id="swatches"></div>
+    <div class="swatchesWrap" id="swatchesWrap">
+        <input class="search" placeholder="Search" />
+        <div class="swatches">
+            <ul class="list" id="swatches"></ul>
+        </div>
     </div>
 
     <div class="tools">
@@ -77,20 +81,22 @@
         </div>
         <ul class="actions">
             <li>
-                <button id="icon_fill" title="Apply to Fill">
+                <button id="icon_fill">
                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
                         <path d="M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L18,6 L18,18 L6,18 L6,6 Z M8,8 L16,8 L16,16 L8,16 L8,8 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
                     </svg>
                 </button>
+                <span>Apply to Fill</span>
             </li>
             <li>
-                <button id="icon_stroke" title="Apply to Stroke">
+                <button id="icon_stroke">
                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
                         <path d="M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L18,6 L18,18 L6,18 L6,6 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
                     </svg>
                 </button>
+                <span>Apply to Stroke</span>
             </li>
             <li>
                 <button id="icon_add" title="Add to Document Colors">
@@ -99,25 +105,29 @@
                         <path d="M11,11 L9,11 L9,13 L11,13 L11,15 L13,15 L13,13 L15,13 L15,11 L13,11 L13,9 L11,9 L11,11 Z M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L18,6 L18,18 L6,18 L6,6 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
                     </svg>
                 </button>
+                <span>Add to Document Colors</span>
             </li>
             <li>
-                <button id="icon_copy" title="Copy Color Code">
+                <button id="icon_copy">
                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
                         <path d="M18,10 L18,6 L6,6 L6,18 L10,18 L10,10 L18,10 Z M4,4 L20,4 L20,20 L4,20 L4,4 Z" fill-opacity="0.7" fill="#000000" fill-rule="evenodd"></path>
                     </svg>
                 </button>
+                <span>Copy Color Code</span>
             </li>
             <li>
-                <button id="icon_save" title="Save to System Color Picker">
+                <button id="icon_save">
                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect x="0" y="0" width="24" height="24" fill="#FFFFFF"></rect>
                         <path d="M12.5,15 L11.5,15 L11.5,16 L8,12.5 L8,10 L11,13 L11,8 L13,8 L13,13 L16,10 L16,12.5 L12.5,16 L12.5,15 Z M4,4 L20,4 L20,20 L4,20 L4,4 Z M6,6 L6,18 L18,18 L18,6 L6,6 Z M11.5,15 L11.5,16 L12.5,16 L12.5,15 L11.5,15 Z" fill-opacity="0.7" fill="#000000"></path>
                     </svg>
                 </button>
+                <span>Save to System Color Picker</span>
             </li>
         </ul>
     </div>
+
 </div>
 <script>
     $(document).ready(function() {

@@ -23,7 +23,7 @@ body, ul, p {
     margin: 0;
     padding: 0;
 }
-button {
+button, input {
     -webkit-appearance: none;
     border: none;
     background: none;
@@ -64,6 +64,7 @@ header h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     flex: auto;
+    cursor: default;
 }
 #menuToggle {
     display: block;
@@ -93,7 +94,7 @@ header h1 {
 #menu::before, #menu::after {
     content: "";
     position: fixed;
-    top: 56px;
+    top: 0px;
     left: 16px;
     display: block;
     width: 360px;
@@ -106,7 +107,8 @@ header h1 {
     background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
 }
 #menuToggle-close {
-    float: right;
+    position: absolute;
+    right: 0;
     display: block;
     width: 24px;
     height: 24px;
@@ -118,9 +120,8 @@ header h1 {
     fill-opacity: 1;
 }
 .menulist {
-    clear: both;
     overflow: auto;
-    height: 390px;
+    height: 510px;
     padding: 16px 0;
 }
 .menulist li {
@@ -163,7 +164,7 @@ header h1 {
     border: 3px solid #fff;
     border-radius:2em;
 }
-.swatchesWrap::before, .swatchesWrap::after {
+/*.swatchesWrap::before, .swatchesWrap::after {
     content: "";
     position: fixed;
     top: 56px;
@@ -177,11 +178,14 @@ header h1 {
     top: auto;
     bottom: 56px;
     background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
-}
-#swatches {
+}*/
+.swatches {
     width: 360px;
 }
-#swatches button {
+.swatches li {
+    list-style: none;
+}
+.swatches button {
     display: block;
     float: left;
     width: 30px;
@@ -190,15 +194,30 @@ header h1 {
     text-indent: -9999px;
     background: #fff;
 }
-#swatches button.focus {
+.swatches button.focus {
     border: 2px solid #fff;
     box-sizing: border-box;
 }
-#swatches .colorgroup {
+.swatches .colorgroup {
     clear: both;
     height: 24px;
     line-height: 24px;
     color: #999;
+}
+
+.search {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    margin: 0 0 16px;
+    padding: 8px 16px 8px 32px;
+    width: 360px;
+    height: 32px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    background: #fff url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTEuOTI2IDEwLjQyNkwxNiAxNC41IDE0LjUgMTZsLTQuMDc0LTQuMDc0YTYgNiAwIDEgMSAxLjUtMS41ek03IDExYTQgNCAwIDEgMCAwLTggNCA0IDAgMCAwIDAgOHoiIGZpbGw9IiNDQ0MiLz48L3N2Zz4=) no-repeat 8px 50%;
 }
 
 
@@ -260,4 +279,32 @@ header h1 {
 .actions button:hover + span {
     opacity: 1;
     display: block;
+}
+
+.actions span {
+    opacity: 0;
+    display: none;
+    position: absolute;
+    top: -40px;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    padding: 10px;
+    white-space: nowrap;
+    border-radius: 4px;
+    transition: all .5s ease;
+}
+#icon_fill + span {
+    left: -30px;
+}
+#icon_stroke + span {
+    left: -40px;
+}
+#icon_add + span {
+    right: -50px;
+}
+#icon_copy + span {
+    right: -20px;
+}
+#icon_save + span {
+    right: 0;
 }

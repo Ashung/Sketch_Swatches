@@ -18,7 +18,7 @@ A swatches plugin for Sketch, include Material Design, Open Color, RAL, TOYO, Pa
 - Named Web Colors
 - Web Safe Colors
 - Name Colors
-- Brandcolors
+- Brand Colors
 - RAL
 - TOYO
 - DIC

@@ -35,6 +35,16 @@ function initSwatches(title) {
         $("#icon_copy").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-copy"');
         $("#icon_save").attr("onclick", 'window.location.hash="save-to-system"');
     }
+
+    // Search
+    var options = {
+        valueNames: [
+            "palette",
+            { name: "name", attr: "title" }
+        ]
+    };
+
+    var colorList = new List("swatchesWrap", options);
 }
 
 function getAllColors() {

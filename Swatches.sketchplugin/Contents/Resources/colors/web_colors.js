@@ -194,7 +194,7 @@ var init_web_colors = function(title) {
             var hex = colors[i][1];
             var name = colors[i][0];
             $("#swatches").append(
-                '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:40px;height:40px;background:#' + hex + ';">' + hex + '</button>'
+                '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:40px;height:40px;background:#' + hex + ';">' + hex + '</button></li>'
             );
         }
 

@@ -380,9 +380,9 @@ var init_material_design_colors = function(title) {
             for (var j = 0; j < colors[i].items.length; j++) {
                 var hex = colors[i].items[j][1];
                 var name = colors[i].items[j][0];
-                var html = '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:24px;height:24px;background:#' + hex + ';">' + hex + '</button>';
+                var html = '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:24px;height:24px;background:#' + hex + ';">' + hex + '</button></li>';
                 if (j == 0) {
-                    html = '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="clear:left;width:24px;height:24px;background:#' + hex + ';">' + hex + '</button>';
+                    html = '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="clear:left;width:24px;height:24px;background:#' + hex + ';">' + hex + '</button></li>';
                 }
                 $("#swatches").append(html);
             }

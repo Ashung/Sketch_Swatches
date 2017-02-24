@@ -19,7 +19,7 @@ var init_apple_ios_colors = function(title) {
             var hex = colors[i][1];
             var name = colors[i][0];
             $("#swatches").append(
-                '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:90px;height:90px;background:#' + hex + ';">' + hex + '</button>'
+                '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:90px;height:90px;background:#' + hex + ';">' + hex + '</button></li>'
             );
         }
 

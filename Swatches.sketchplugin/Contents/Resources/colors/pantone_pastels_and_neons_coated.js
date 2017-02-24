@@ -213,19 +213,19 @@ var init_pantone_pastels_and_neons_coated = function(title) {
     ];
 
     $(document).ready(function(){
-    
+
         removeSwatches();
-    
+
         for (var i = 0; i < colors.length; i ++) {
             var hex = colors[i][1];
             var name = colors[i][0];
             $("#swatches").append(
-                '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="background:#' + hex + ';">' + hex + '</button>'
+                '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="background:#' + hex + ';">' + hex + '</button></li>'
             );
         }
-    
+
         initSwatches(title);
-    
+
     });
 
 };

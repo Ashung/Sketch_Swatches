@@ -1,4 +1,4 @@
-var init_pantone_color_bridge_uncoated_new_color = function(title) {
+var init_pantone_color_bridge_uncoated_new_colors = function(title) {
     var colors = [
         ["3514 UP", "F3B23B"],
         ["3596 UP", "DBB481"],
@@ -122,7 +122,7 @@ var init_pantone_color_bridge_uncoated_new_color = function(title) {
             var hex = colors[i][1];
             var name = colors[i][0];
             $("#swatches").append(
-                '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="background:#' + hex + ';">' + hex + '</button>'
+                '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="background:#' + hex + ';">' + hex + '</button></li>'
             );
         }
 

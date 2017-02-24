@@ -26,7 +26,7 @@ var onRun = function(context) {
 
     var swatchesWindow = NSPanel.alloc().init();
     var windowWidth = 392,
-        windowHeight = 503;
+        windowHeight = 567;
     swatchesWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
     swatchesWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask);
     swatchesWindow.setBackgroundColor(NSColor.whiteColor());

@@ -68,11 +68,11 @@ var swatches = [
         "handler" : "init_pantone_formula_guide_solid_uncoated"
     },
     {
-        "title" : "Pantone Formula Guide Solid Coated 112 New Colors",
+        "title" : "Pantone Formula Guide Solid Coated New",
         "handler" : "init_pantone_formula_guide_solid_coated_new_colors"
     },
     {
-        "title" : "Pantone Formula Guide Solid Uncoated 112 New Colors",
+        "title" : "Pantone Formula Guide Solid Uncoated New",
         "handler" : "init_pantone_formula_guide_solid_uncoated_new_colors"
     },
     {
@@ -84,11 +84,11 @@ var swatches = [
         "handler" : "init_pantone_color_bridge_uncoated"
     },
     {
-        "title" : "Pantone Color Bridge Coated 112 New Colors",
+        "title" : "Pantone Color Bridge Coated New",
         "handler" : "init_pantone_color_bridge_coated_new_colors"
     },
     {
-        "title" : "Pantone Color Bridge Uncoated 112 New Colors",
+        "title" : "Pantone Color Bridge Uncoated New",
         "handler" : "init_pantone_color_bridge_uncoated_new_colors"
     },
     {

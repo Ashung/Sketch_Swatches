@@ -2102,7 +2102,7 @@ var init_trumatch = function(title) {
             var hex = colors[i][1];
             var name = colors[i][0];
             $("#swatches").append(
-                '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:45px;height:45px;background:#' + hex + ';">' + hex + '</button>'
+                '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:45px;height:45px;background:#' + hex + ';">' + hex + '</button></li>'
             );
         }
     

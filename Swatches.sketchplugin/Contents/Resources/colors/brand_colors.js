@@ -3864,17 +3864,17 @@ var init_brand_colors = function(title) {
              ]
         }
     ];
-    
+
     $(document).ready(function(){
 
         removeSwatches();
 
         for (var i = 0; i < colors.length; i ++) {
-            var html = '<div class="colorgroup">' + colors[i]["title"] + '</div>';
+            var html = '<li class="colorgroup">' + colors[i]["title"] + '</li>';
             for (var j = 0; j < colors[i].items.length; j++) {
                 var hex = colors[i].items[j][1];
                 var name = colors[i].items[j][0];
-                html += '<button onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:45px;height:45px;background:#' + hex + ';">' + hex + '</button>';
+                html += '<li><button class="palette name" onclick="window.location.hash=\'' + hex + '\'" title="' + name + '" style="width:45px;height:45px;background:#' + hex + ';">' + hex + '</button></li>';
             }
             $("#swatches").append(html);
         }
