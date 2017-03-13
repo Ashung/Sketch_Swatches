@@ -29,11 +29,11 @@ function initSwatches(title) {
         $("#colorPreview").css("backgroundColor", "#" + hex);
         $("#colorName").text(name);
         $("#colorHex").text("#" + hex.toUpperCase());
-        $("#icon_fill").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-fill"');
-        $("#icon_stroke").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-stroke"');
-        $("#icon_add").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-add"');
-        $("#icon_copy").attr("onclick", 'window.location.hash="' + hex.toUpperCase() +'-copy"');
-        $("#icon_save").attr("onclick", 'window.location.hash="save-to-system"');
+        $("#icon_fill").attr("onclick", "window.location.hash='" + hex.toUpperCase() + "-fill-'" + " + new Date().getTime();");
+        $("#icon_stroke").attr("onclick", "window.location.hash='" + hex.toUpperCase() + "-stroke-'" + " + new Date().getTime();");
+        $("#icon_add").attr("onclick", "window.location.hash='" + hex.toUpperCase() + "-add-'" + " + new Date().getTime();");
+        $("#icon_copy").attr("onclick", "window.location.hash='" + hex.toUpperCase() + "-copy-'" + " + new Date().getTime();");
+        $("#icon_save").attr("onclick", "window.location.hash='save-to-system-'" + " + new Date().getTime();");
     }
 
     // Search
