@@ -10,9 +10,9 @@
 
 var onRun = function(context) {
 
-    var doc = NSDocumentController.sharedDocumentController().currentDocument();
-    var userDefaults = NSUserDefaults.standardUserDefaults();
+    // var doc = NSDocumentController.sharedDocumentController().currentDocument();
 
+    var userDefaults = NSUserDefaults.standardUserDefaults();
     var swatchDefaultKey = "plugin_sketch_swatches_default_init_code";
 
     // Main window
@@ -24,9 +24,9 @@ var onRun = function(context) {
         return;
     }
 
-    var swatchesWindow = NSPanel.alloc().init();
     var windowWidth = 392,
         windowHeight = 567;
+    var swatchesWindow = NSPanel.alloc().init();
     swatchesWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
     swatchesWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask);
     swatchesWindow.setBackgroundColor(NSColor.whiteColor());
@@ -43,7 +43,9 @@ var onRun = function(context) {
     var webView = WebView.alloc().initWithFrame(NSMakeRect(0, 0, windowWidth, windowHeight - 24));
     var windowObject = webView.windowScriptObject();
     var delegate = new MochaJSDelegate({
+
         "webView:didFinishLoadForFrame:" : (function(webView, webFrame) {
+
             var defaultSwatch = userDefaults.stringForKey(swatchDefaultKey);
             if (!defaultSwatch) {
                 var initCode = swatches[0]["handler"] + '("' + swatches[0]["title"] + '")';
@@ -54,10 +56,12 @@ var onRun = function(context) {
 
             userDefaults.setObject_forKey(initCode, swatchDefaultKey);
             userDefaults.synchronize();
-        }),
-        "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
-            var locationHash = windowObject.evaluateWebScript("window.location.hash");
 
+        }),
+
+        "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
+
+            var locationHash = windowObject.evaluateWebScript("window.location.hash");
             var title = windowObject.evaluateWebScript("document.getElementById('title').innerHTML");
             var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
 
@@ -74,38 +78,38 @@ var onRun = function(context) {
              // Fill
             if (/^#[A-F0-9]{6}-fill/i.test(locationHash)) {
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-                var selection = doc.selectedLayers().layers();
+                var selection = updateContext().selection;
                 if (selection.count() > 0) {
                     for (var i = 0; i < selection.count(); i++) {
                         var layer = selection.objectAtIndex(i);
                         setFillColor(layer, hexToMSColor(hex));
                     }
-                    doc.reloadInspector();
+                    updateContext().document.reloadInspector();
                 } else {
-                    doc.showMessage("Please selected more than one layer.");
+                    updateContext().document.showMessage("Please selected more than one layer.");
                 }
             }
 
             // Stroke
             if (/^#[A-F0-9]{6}-stroke/i.test(locationHash)) {
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-                var selection = doc.selectedLayers().layers();
+                var selection = updateContext().selection;
                 if (selection.count() > 0) {
                     for (var i = 0; i < selection.count(); i++) {
                         var layer = selection.objectAtIndex(i);
                         setStrokeColor(layer, hexToMSColor(hex));
                     }
-                    doc.reloadInspector();
+                    updateContext().document.reloadInspector();
                 } else {
-                    doc.showMessage("Please selected more than one layer.");
+                    updateContext().document.showMessage("Please selected more than one layer.");
                 }
             }
 
             // Add to document colors
             if (/^#[A-F0-9]{6}-add/i.test(locationHash)) {
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
-                addColorToDocumentColors(context, hexToMSColor(hex));
-                doc.showMessage("The color #" + hex + " has add to document colors.");
+                addColorToDocumentColors(updateContext().document, hexToMSColor(hex));
+                updateContext().document.showMessage("The color #" + hex + " has add to document colors.");
             }
 
             // Copy
@@ -113,7 +117,7 @@ var onRun = function(context) {
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
                 var message = "The color #" + hex + " has been copied.";
                 var code = "#" + hex + " /* " + title + " " + colorName + " */";
-                copyToClipBoard(context, message, code);
+                copyToClipBoard(updateContext().document, message, code);
             }
 
             // Save to system color picker
@@ -128,10 +132,10 @@ var onRun = function(context) {
                     systemColorList.setColor_forKey(color, colors[i][0]);
                 }
 
-                //save file to ~/Library/Colors/
+                // Save file to ~/Library/Colors/
                 systemColorList.writeToFile(systemColorListPath);
 
-                doc.showMessage('Color palette has saved to the system color picker, restart Sketch and run "View" - "Show Colors" to show it.');
+                updateContext().document.showMessage('Color palette has saved to the system color picker, restart Sketch and run "View" - "Show Colors" to show it.');
             }
 
         })
@@ -235,15 +239,24 @@ function setStrokeColor(layer, color) {
     }
 }
 
-function addColorToDocumentColors(context, mscolor) {
-    var documentColors = context.document.documentData().assets().colors();
-    documentColors.addObject(mscolor);
-    context.document.showMessage("The color has been added to document colors.");
+function updateContext() {
+    var doc = NSDocumentController.sharedDocumentController().currentDocument();
+    var selection = doc.selectedLayers().layers();
+    return {
+        document : doc,
+        selection : selection
+    }
 }
 
-function copyToClipBoard(context, message, str) {
+function addColorToDocumentColors(document, mscolor) {
+    var documentColors = context.document.documentData().assets().colors();
+    documentColors.addObject(mscolor);
+    document.showMessage("The color has been added to document colors.");
+}
+
+function copyToClipBoard(document, message, str) {
     var pboard = NSPasteboard.generalPasteboard();
     pboard.clearContents();
     pboard.setString_forType_(str, NSStringPboardType);
-    context.document.showMessage(message);
+    document.showMessage(message);
 }
