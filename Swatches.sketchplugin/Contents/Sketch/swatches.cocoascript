@@ -10,8 +10,6 @@
 
 var onRun = function(context) {
 
-    // var doc = NSDocumentController.sharedDocumentController().currentDocument();
-
     var userDefaults = NSUserDefaults.standardUserDefaults();
     var swatchDefaultKey = "plugin_sketch_swatches_default_init_code";
 
@@ -168,16 +166,8 @@ var reportIssue = function(context) {
     openUrlInBrowser(context.plugin.homepageURL() + "/issues");
 };
 
-var donateViaPaypal = function() {
-    openUrlInBrowser("https://www.paypal.me/ashung/2");
-};
-
-var donateViaWechat = function() {
-    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/css/donate_wechat_rmb_10.png");
-};
-
-var donateViaAlipay = function() {
-    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/css/donate_alipay_rmb_10.png");
+var donate = function() {
+    openUrlInBrowser("https://ashung.github.io/donate.html");
 };
 
 function openUrlInBrowser(url) {
@@ -243,13 +233,13 @@ function updateContext() {
     var doc = NSDocumentController.sharedDocumentController().currentDocument();
     var selection = doc.selectedLayers().layers();
     return {
-        document : doc,
-        selection : selection
+        document: doc,
+        selection: selection
     }
 }
 
 function addColorToDocumentColors(document, mscolor) {
-    var documentColors = context.document.documentData().assets().colors();
+    var documentColors = document.documentData().assets().colors();
     documentColors.addObject(mscolor);
     document.showMessage("The color has been added to document colors.");
 }

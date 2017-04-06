@@ -18,21 +18,9 @@
             "script": "swatches.cocoascript"
         },
         {
-            "name": "Donate via PayPal",
-            "identifier": "donate_via_paypal",
-            "handler": "donateViaPaypal",
-            "script": "swatches.cocoascript"
-        },
-        {
-            "name": "Donate via WeChat",
-            "identifier": "donate_via_wechat",
-            "handler": "donateViaWechat",
-            "script": "swatches.cocoascript"
-        },
-        {
-            "name": "Donate via Alipay",
-            "identifier": "donate_via_alipay",
-            "handler": "donateViaAlipay",
+            "name": "Donate",
+            "identifier": "donate",
+            "handler": "donate",
             "script": "swatches.cocoascript"
         }
     ],
@@ -40,23 +28,16 @@
         "items" : [
             "swatches",
             "-",
-            {
-                "title": "Help",
-                "items": [
-                    "web_site",
-                    "report_issue",
-                    "-",
-                    "donate_via_paypal",
-                    "donate_via_wechat",
-                    "donate_via_alipay"
-                ]
-            }
+            "web_site",
+            "report_issue",
+            "-",
+            "donate"
         ],
         "title" : "Swatches"
     },
     "identifier" : "com.ashung.hung.sketch_swatches",
     "compatibleVersion": "3",
-    "version" : "2.3",
+    "version" : "2.3.1",
     "description" : "Swatches for Sketch, include Material Design, Open Color, RAL, TOYO, Pantone and more.",
     "homepage": "https://github.com/Ashung/Sketch_Swatches",
     "downloadURL": "https://github.com/Ashung/Sketch_Swatches/archive/master.zip",
