@@ -13,6 +13,7 @@ A swatches plugin for Sketch, include Material Design, Open Color, RAL, TOYO, Pa
 
 - Google Material Design
 - Apple iOS
+- Ant Design Colors
 - Open Color
 - IBM Design Colors
 - Named Web Colors
