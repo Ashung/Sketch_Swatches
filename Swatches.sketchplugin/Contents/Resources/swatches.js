@@ -8,6 +8,10 @@ var swatches = [
         "handler" : "init_apple_ios_colors"
     },
     {
+        "title" : "Ant Design Colors",
+        "handler" : "init_ant_design_colors"
+    },
+    {
         "title" : "Open Color",
         "handler" : "init_open_color"
     },
