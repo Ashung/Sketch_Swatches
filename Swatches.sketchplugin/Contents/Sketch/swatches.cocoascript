@@ -114,7 +114,7 @@ var onRun = function(context) {
             if (/^#[A-F0-9]{6}-copy/i.test(locationHash)) {
                 var hex = locationHash.match(/^#([A-F0-9]{6})/)[1];
                 var message = "The color #" + hex + " has been copied.";
-                var code = "#" + hex + " /* " + title + " " + colorName + " */";
+                var code = hex;
                 copyToClipBoard(updateContext().document, message, code);
             }
 
