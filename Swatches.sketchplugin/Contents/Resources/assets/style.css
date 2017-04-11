@@ -164,21 +164,6 @@ header h1 {
     border: 3px solid #fff;
     border-radius:2em;
 }
-/*.swatchesWrap::before, .swatchesWrap::after {
-    content: "";
-    position: fixed;
-    top: 56px;
-    left: 0;
-    display: block;
-    width: 376px;
-    height: 16px;
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
-}
-.swatchesWrap::after {
-    top: auto;
-    bottom: 56px;
-    background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1));
-}*/
 .swatches {
     width: 360px;
 }
@@ -192,14 +177,12 @@ header h1 {
     height: 30px;
     overflow: hidden;
     text-indent: -9999px;
-    border: 2px solid #fff;
+    border: 1px solid #fff;
     background: #fff;
     box-sizing: border-box;
-    border-radius: 4px;
 }
 .swatches button.focus {
-    border: 4px solid #fff;
-    box-sizing: border-box;
+    border: 2px solid #fff;
 }
 .swatches .colorgroup {
     clear: both;
