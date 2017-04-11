@@ -192,13 +192,12 @@ header h1 {
     height: 30px;
     overflow: hidden;
     text-indent: -9999px;
-    border: 2px solid #fff;
     background: #fff;
     box-sizing: border-box;
-    border-radius: 4px;
+    margin: 2px 0;
 }
 .swatches button.focus {
-    border: 4px solid #fff;
+    border: 2px solid #fff;
     box-sizing: border-box;
 }
 .swatches .colorgroup {
