@@ -231,7 +231,13 @@ function setStrokeColor(layer, color) {
 
 function updateContext() {
     var doc = NSDocumentController.sharedDocumentController().currentDocument();
-    var selection = doc.selectedLayers().layers();
+
+    if (MSApplicationMetadata.metadata().appVersion > 41.2) {
+        var selection = doc.selectedLayers().layers();
+    } else {
+        var selection = doc.selectedLayers();
+    }
+
     return {
         document: doc,
         selection: selection
