@@ -8,8 +8,24 @@ var swatches = [
         "handler" : "init_apple_ios_colors"
     },
     {
+        "title" : "Microsoft Windows",
+        "handler" : "init_microsoft_windows_colors"
+    },
+    {
         "title" : "Ant Design Colors",
         "handler" : "init_ant_design_colors"
+    },
+    {
+        "title" : "Shopify Polaris Design",
+        "handler" : "init_shopify_polaris_colors"
+    },
+    {
+        "title" : "Atlassian Design",
+        "handler" : "init_atlassian_design_colors"
+    },
+    {
+        "title" : "Flat UI Colors",
+        "handler" : "init_flat_ui_colors"
     },
     {
         "title" : "Open Color",
@@ -26,10 +42,6 @@ var swatches = [
     {
         "title" : "Web Safe Colors",
         "handler" : "init_web_safe_colors"
-    },
-    {
-        "title" : "Flat UI Colors",
-        "handler" : "init_flat_ui_colors"
     },
     {
         "title" : "Brand Colors",
@@ -144,11 +156,11 @@ var swatches = [
         "handler" : "init_pantone_fashion_home_interiors_paper_new"
     },
     {
-        "title" : "中国の伝統色",
+        "title" : "China Traditional Colors",
         "handler" : "init_traditinal_chinese_colors"
     },
     {
-        "title" : "日本の伝統色",
+        "title" : "Japan Traditional Colors",
         "handler" : "init_traditinal_japanese_colors"
     }
 ];

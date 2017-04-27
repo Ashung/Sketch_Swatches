@@ -1,9 +1,20 @@
-/*==========================================================
-    Swatches for Sketch
-    Author: Ashung Hung
-    Homepage: https://github.com/Ashung/Sketch_Swatches
-    License: CC-BY 4.0
-==========================================================*/
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
 
 @import "MochaJSDelegate.js";
 @import "../Resources/swatches.js";
@@ -55,6 +66,8 @@ var onRun = function(context) {
             userDefaults.setObject_forKey(initCode, swatchDefaultKey);
             userDefaults.synchronize();
 
+            ga(context, "open", "open");
+
         }),
 
         "webView:didChangeLocationWithinPageForFrame:" : (function(webView, webFrame) {
@@ -63,7 +76,17 @@ var onRun = function(context) {
             var title = windowObject.evaluateWebScript("document.getElementById('title').innerHTML");
             var colorName = windowObject.evaluateWebScript("document.getElementById('colorName').innerHTML");
 
-            log(locationHash);
+            // log(locationHash);
+
+            // Fixs window blur
+            if (/^#windowOnFocus_.*/i.test(locationHash)) {
+                var point = swatchesWindow.currentEvent().locationInWindow();
+                var x = point.x;
+                var y = windowHeight - point.y - 24;
+                if (x > 0 && y > 0) {
+                    windowObject.evaluateWebScript("clickAtPoint(" + x + ", " + y + ")");
+                }
+            }
 
             // Save last opened swatch.
             if (/^#init_.*/i.test(locationHash)) {
@@ -160,14 +183,17 @@ var onRun = function(context) {
 
 var website = function(context) {
     openUrlInBrowser(context.plugin.homepageURL() + "");
+    ga(context, "website", "website");
 };
 
 var reportIssue = function(context) {
     openUrlInBrowser(context.plugin.homepageURL() + "/issues");
+    ga(context, "issues", "issues");
 };
 
 var donate = function() {
     openUrlInBrowser("https://ashung.github.io/donate.html");
+    ga(context, "donate", "donate");
 };
 
 function openUrlInBrowser(url) {
@@ -255,4 +281,52 @@ function copyToClipBoard(document, message, str) {
     pboard.clearContents();
     pboard.setString_forType_(str, NSStringPboardType);
     document.showMessage(message);
+}
+
+function ga(context, eventCategory, eventAction, eventLabel, eventValue) {
+
+    var uuidKey = 'google.analytics.uuid';
+    var uuid = NSUserDefaults.standardUserDefaults().objectForKey(uuidKey);
+    if (!uuid) {
+        uuid = NSUUID.UUID().UUIDString();
+        NSUserDefaults.standardUserDefaults().setObject_forKey(uuid, uuidKey);
+    }
+
+    var trackingID = "UA-99098773-4",
+        appName = encodeURI(context.plugin.name()),
+        appId = context.plugin.identifier(),
+        appVersion = context.plugin.version();
+
+    var url = "https://www.google-analytics.com/collect?v=1";
+    // Tracking ID
+    url += "&tid=" + trackingID;
+    // Source
+    url += "&ds=sketch" + MSApplicationMetadata.metadata().appVersion;
+    // Client ID
+    url += "&cid=" + uuid;
+    // pageview, screenview, event, transaction, item, social, exception, timing
+    url += "&t=event";
+    // App Name
+    url += "&an=" + appName;
+    // App ID
+    url += "&aid=" + appId;
+    // App Version
+    url += "&av=" + appVersion;
+    // Event category
+    url += "&ec=" + encodeURI(eventCategory);
+    // Event action
+    url += "&ea=" + encodeURI(eventAction);
+    // Event label
+    if (eventLabel) {
+        url += "&el=" + encodeURI(eventLabel);
+    }
+    // Event value
+    if (eventValue) {
+        url += "&ev=" + encodeURI(eventValue);
+    }
+
+    var session = NSURLSession.sharedSession();
+    var task = session.dataTaskWithURL(NSURL.URLWithString(NSString.stringWithString(url)));
+    task.resume();
+
 }

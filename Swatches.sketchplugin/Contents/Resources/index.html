@@ -13,6 +13,9 @@
 <script src="colors/material_design_colors.js"></script>
 <script src="colors/ant_design_colors.js"></script>
 <script src="colors/apple_ios.js"></script>
+<script src="colors/microsoft_windows_colors.js"></script>
+<script src="colors/shopify_polaris_colors.js"></script>
+<script src="colors/atlassian_design_colors.js"></script>
 <script src="colors/web_colors.js"></script>
 <script src="colors/web_safe_colors.js"></script>
 <script src="colors/flat_ui_colors.js"></script>
@@ -51,7 +54,7 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container" id="container">
     <header>
         <h1 id="title">Swatches</h1>
         <button id="menuToggle">
@@ -68,8 +71,11 @@
         </div>
     </header>
 
-    <div class="swatchesWrap" id="swatchesWrap">
+    <div class="searchWrap">
         <input class="search" placeholder="Search" />
+    </div>
+
+    <div class="swatchesWrap" id="swatchesWrap">
         <div class="swatches">
             <ul class="list" id="swatches"></ul>
         </div>
@@ -166,9 +172,21 @@
         });
     });
 
+    window.onfocus = function() {
+        window.location.hash = "windowOnFocus_" + new Date().getTime();
+    }
+
     // Disable right-click menu
     document.oncontextmenu = function() {
         window.event.returnValue = false;
+    }
+
+    function clickAtPoint(x, y) {
+        var element = document.elementFromPoint(x, y);
+        if (element.tagName == "BUTTON" || element.tagName == "INPUT" || element.tagName == "A") {
+            element.click();
+            element.focus();
+        }
     }
 
 </script>
