@@ -9,18 +9,18 @@ var init_flat_ui_colors = function(title) {
         ["Orange", "f39c12"],
         ["Turquoise", "1abc9c"],
         ["Green Sea", "16a085"],
-	["Emerald", "2ecc71"],
-	["Nephritis", "27ae60"],
-	["Peter River", "3498db"],
-	["Belize Hole", "2980b9"],
-	["Amethyst", "9b59b6"],
-	["Wisteria", "8e44ad"],
-	["Wet Asphalt", "34495e"],
-	["Midnight Blue", "2c3e50"],
-	["Concrete", "95a5a6"],
-	["Asbestos", "7f8c8d"],
-	["Clouds", "ecf0f1"],
-	["Silver", "bdc3c7"]
+        ["Emerald", "2ecc71"],
+        ["Nephritis", "27ae60"],
+        ["Peter River", "3498db"],
+        ["Belize Hole", "2980b9"],
+        ["Amethyst", "9b59b6"],
+        ["Wisteria", "8e44ad"],
+        ["Wet Asphalt", "34495e"],
+        ["Midnight Blue", "2c3e50"],
+        ["Concrete", "95a5a6"],
+        ["Asbestos", "7f8c8d"],
+        ["Clouds", "ecf0f1"],
+        ["Silver", "bdc3c7"]
     ];
 
     $(document).ready(function(){
