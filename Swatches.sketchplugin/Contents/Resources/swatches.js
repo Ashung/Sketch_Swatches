@@ -28,6 +28,10 @@ var swatches = [
         "handler" : "init_web_safe_colors"
     },
     {
+	"title" : "Flat UI Colors",
+	"handler" : "init_flat_ui_colors"
+    },
+    {
         "title" : "Brand Colors",
         "handler" : "init_brand_colors"
     },
