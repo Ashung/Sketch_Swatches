@@ -36,6 +36,7 @@
         "title" : "Swatches"
     },
     "identifier" : "com.ashung.hung.sketch_swatches",
+    "appcast": "https://api.sketchpacks.com/v1/plugins/com.ashung.hung.sketch_swatches/appcast",
     "compatibleVersion": "3",
     "version" : "2.5",
     "description" : "Swatches for Sketch, include Material Design, Open Color, RAL, TOYO, Pantone and more.",
