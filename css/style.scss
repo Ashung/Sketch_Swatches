@@ -1,0 +1,130 @@
+---
+---
+
+$fontsize: 100%; // 16px
+$lineheight: 1.5; // 24px
+$basefont: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$text_color: rgba(0, 0, 0, .8);
+$text_color_gray: rgba(0, 0, 0, .6);
+$text_color_dark: #000;
+$background: #fff;
+$highlight_color_hover: #ff5500;
+$highlight_color: #ffaa00;
+$highlight_color_transparent: rgba(255, 85, 0, .8);
+
+body {
+    margin: 0;
+    padding: 0;
+    color: $text_color;
+    background: $background;
+    text-align: center;
+    overflow-x: hidden;
+    font: #{$fontsize}/#{$lineheight} $basefont;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a:link, a:visited {
+    color: inherit;
+    text-decoration: underline;
+}
+::selection {
+    color: $background;
+    background: $highlight_color_transparent;
+}
+
+header {
+    margin: 128px auto;
+    overflow: hidden;
+    h1 {
+        margin: 0;
+        img {
+            display: block;
+            margin: auto;
+        }
+    }
+    .porject-badge {
+        padding: 0;
+        margin: 0;
+        line-height: 0;
+        .star, .download {
+            display: inline-block;
+            text-align: left;
+            height: 36px;
+            line-height: 40px;
+            margin: 0 2px;
+            padding-right: 6px;
+            color: #FFFFFF;
+            border: 2px solid $highlight_color;
+            background: $highlight_color;
+            border-radius: 5px;
+            overflow: hidden;
+            text-decoration: none;
+            i {
+                float: left;
+                width: 24px;
+                height: 24px;
+                overflow: hidden;
+                margin: 6px;
+                background: url("icon_sprite.svg") no-repeat 0 -24px;
+            }
+        }
+        .star {
+            width: 100px;
+            background: $background;
+            color: $text_color;
+            border: 2px solid #bbb;
+            i {
+                background-position: 0 -48px;
+            }
+        }
+        .download:hover {
+            background-color: $highlight_color_hover;
+            border-color: $highlight_color_hover;
+        }
+    }
+}
+
+.ribbon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 240px;
+    height: 30px;
+    line-height: 30px;
+    background: rgba(0, 0, 0, .8);
+    font-size: 75%;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 200ms cubic-bezier(0.6, 0, 0.4, 1);
+    -webkit-transform: translate(50%, -50%) rotate(45deg) translateY(64px);
+    -moz-transform: translate(50%, -50%) rotate(45deg) translateY(64px);
+    -ms-transform: translate(50%, -50%) rotate(45deg) translateY(64px);
+    -o-transform: translate(50%, -50%) rotate(45deg) translateY(64px);
+    transform: translate(50%, -50%) rotate(45deg) translateY(64px);
+    &:link, &:visited {
+        color: #fff;
+        text-decoration: none;
+    }
+    &:hover, &:active {
+        background: $highlight_color_hover;
+    }
+}
+
+footer {
+    color: $text_color_gray;
+    margin: 0 20px 2.5rem;
+    .donate {
+        line-height: 2em;
+        a:link, a:visited {
+            text-decoration: none;
+        }
+        small {
+            vertical-align: 0.2em;
+        }
+    }
+}

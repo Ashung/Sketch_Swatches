@@ -1,0 +1,63 @@
+---
+---
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>HSL Color Picker for Sketch</title>
+<meta name="description" content="Sketch_Swatches for Sketch.">
+<meta name="keywords" content="Sketch, Plugin, Sketch-plugin">
+<meta name="author" content="Ashung Hung">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<script>
+    function foo(response) {
+        var data = response.data;
+        var star = data.stargazers_count;
+        if(star) {
+            document.getElementById("project-star").innerHTML = star;
+        }
+    }
+    var script = document.createElement('script');
+    script.src = 'https://api.github.com/repos/Ashung/Sketch_Swatches?callback=foo';
+    document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+</head>
+<body>
+<header>
+    <hgroup class="logo">
+        <h1>
+            <a href="https://github.com/Ashung/Sketch_Swatches/" rel="home">
+                <img src="swatches.png" alt="Swatches for Sketch"/>
+            </a>
+        </h1>
+        <p class="porject-badge">
+            <span class="star">
+                <i>&nbsp;</i>Star <span id="project-star">0</span>
+            </span>
+            <a class="download" href="https://github.com/Ashung/Sketch_Swatches/archive/master.zip">
+                <i>&nbsp;</i>Download
+            </a>
+        </p>
+    </hgroup>
+</header>
+<footer>
+    <div class="author">
+        <p>
+            Follow me on
+            <a href="https://github.com/Ashung">Github</a>,
+            <a href="https://dribbble.com/ashung">Dribbble</a>,
+            <a href="https://behance.net/ashung">Behance</a>,
+            <a href="http://weibo.com/ashung">Weibo</a>.
+        </p>
+        <p class="donate">
+            Donate via<br>
+            <a href="https://ashung.github.io/donate.html?ref=sketch_swatches">PayPal</a>,
+            <a href="https://ashung.github.io/donate.html?ref=sketch_swatches">微信 (WeChat Pay)</a>,
+            <a href="https://ashung.github.io/donate.html?ref=sketch_swatches">支付宝 (Alipay)</a>
+        </p>
+    </div>
+    <a class="ribbon" href="https://github.com/Ashung/Sketch_Swatches/">Fork me on GitHub</a>
+</footer>
+</body>
+</html>

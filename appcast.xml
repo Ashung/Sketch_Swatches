@@ -1,0 +1,20 @@
+---
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>HSL Color Picker</title>
+        <link>https://ashung.github.io/Sketch_Swatches/appcast.xml</link>
+        <description>HSL Color Picker for Sketch</description>
+        <language>en</language>
+        {% for item in site.data.release %}
+        <item>
+            <title>{{ item.title }}</title>
+            <enclosure
+                url="https://github.com/Ashung/Sketch_Swatches/archive/{{ item.commitID }}.zip"
+                sparkle:version="{{ item.version }}"
+                type="application/octet-stream"/>
+        </item>
+        {% endfor %}
+    </channel>
+</rss>
