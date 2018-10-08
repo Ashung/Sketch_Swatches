@@ -29,6 +29,6 @@ Apache 2.0
 
 ## Donate
 
-Donate [$2.00](https://www.paypal.me/ashung/2),  [$5.00](https://www.paypal.me/ashung/5) via PayPal.
+[Buy me a coffee](https://www.buymeacoffee.com/ashung) or donate [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) [$10.00](https://www.paypal.me/ashung/10)  via PayPal.
 
 [使用支付宝与微信打赏](https://ashung.github.io/donate.html)

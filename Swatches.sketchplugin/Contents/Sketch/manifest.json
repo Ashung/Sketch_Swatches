@@ -37,7 +37,7 @@
     },
     "icon": "icon.png",
     "identifier" : "com.ashung.hung.sketch_swatches",
-    "version" : "2.6.0",
+    "version" : "2.6.1",
     "description" : "Swatches for Sketch.",
     "homepage": "https://github.com/Ashung/Sketch_Swatches",
     "appcast": "https://ashung.github.io/Sketch_Swatches/appcast.xml",
