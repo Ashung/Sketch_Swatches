@@ -1,5 +1,11 @@
 # Swatches for Sketch
 
+**This project is no longer maintenance**. Use system color picker (run "View" - "Show Colors") instead, and use [Import Colors](https://github.com/Ashung/import-colors-sketch) plugin to convert swatches file from Photoshop and Illustartor to .clr file.
+
+All swatches files inside this plugin in clr format, can download [here](swatches.zip).
+
+----
+
 A swatches plugin for Sketch.
 
 ![](Swatches.png)
